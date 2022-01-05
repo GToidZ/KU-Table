@@ -223,7 +223,7 @@ export default {
 			}
 			const printCanvas = await this.$html2canvas(el, options)
 			const link = document.createElement('a')
-			link.setAttribute('download', 'ku-table.png')
+			link.setAttribute('download', getScheduleFilename(this.theme === 'dark'))
 			link.setAttribute('href', printCanvas)
 			link.className = 'dark:text-white'
 			link.click()
@@ -275,6 +275,10 @@ export default {
 				})
 				.finally(() => (this.loading = false))
 		},
+		getScheduleFilename(isDark) {
+			const currentDate = new Date().toLocaleDateString('en-GB').replaceAll('/', '-')
+			return `ku-table-${isDark ? 'dark' : 'light'}-${currentDate}.png`
+		}
 	},
 }
 </script>
